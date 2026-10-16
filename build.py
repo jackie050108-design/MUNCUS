@@ -94,6 +94,19 @@ def person(r,n,sch="",ph=None):
     if ph: return f'<figure class="poster"><img src="{ph}" alt="{n}, {r}, {sch}" loading="lazy"></figure>'
     av=f'<img class="avatar" src="{ph}" alt="{n}">' if ph else f'<div class="ph avatar">{"[Photo]" if n.startswith("[") else "".join(w[0] for w in n.split()[:2])}</div>'
     return f'<div class="card person">{av}<h3>{n}</h3><p>{r}</p>{f"<small>{sch}</small>" if sch else ""}</div>'
+def sec_item(r,n,sch="",ph=None,show_role=True):
+    img=f'<figure class="poster"><img src="{ph}" alt="{n}, {r}, {sch}" loading="lazy"></figure>' if ph else '<div class="ph poster-ph">[Photo]</div>'
+    return f'<div class="sec-item">{img}<div class="sec-name">{n}</div>{f"<div class=\"sec-role\">{r.replace(', ','<br>').replace(' of ',' <i>of</i> ')}</div>" if show_role else ""}</div>'
+def secretariat(secr):
+    """Leaders in rows of 2 then 3; any position held by several people gets its own titled group."""
+    from collections import Counter
+    cnt=Counter(p[0] for p in secr)
+    singles=[p for p in secr if cnt[p[0]]==1]
+    rows=[singles[:2],singles[2:]] if len(singles)>3 else [singles]
+    out="".join(f'<div class="sec-row">{"".join(sec_item(*p) for p in row)}</div>' for row in rows if row)
+    for role in dict.fromkeys(p[0] for p in secr if cnt[p[0]]>1):
+        out+=f'<h3 class="sec-group">{role.replace(" of ", " <i>of</i> ")}</h3><div class="sec-row">'+"".join(sec_item(*p,show_role=False) for p in secr if p[0]==role)+'</div>'
+    return out
 def comm(m):
     ads="".join(f"<li>{n}<small>{sch}</small></li>" for n,sch in m.get("ads",[]))
     d=m["director"]
@@ -121,7 +134,7 @@ for slug,name,date,venue in PAST:
     slides="".join(f'<div class="slide ph">[Highlight photo {i}]</div>' for i in range(1,7))
     b=(f'<section class="page-hero conf-hero"><div class="container"><div><h1>{name}</h1><p>{date} · {venue}</p></div><div class="hero-badges">{badges}</div></div></section>'
        f'<section><div class="container split letter">{photo}<div><h2>Welcome to {name}</h2>{letter}<p class="sign">{sign}</p></div></div></section>'
-       '<section class="soft"><div class="container"><h2>Secretariat</h2><div class="grid secretariat" style="margin-top:28px">'+"".join(person(*p) for p in secr)+'</div></div></section>'
+       '<section class="soft"><div class="container"><h2>Secretariat</h2><div class="sec-wrap">'+secretariat(secr)+'</div></div></section>'
        '<section><div class="container"><h2>Committees</h2><div class="grid g3" style="margin-top:28px">'+"".join(comm(m) for m in comms)+'</div></div></section>'
        f'<section class="soft"><div class="container"><h2>Photo Highlights</h2><div class="carousel"><div class="track">{slides}</div><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button><div class="dots"></div></div></div></section>'
        '<section><div class="container"><h2>Awards</h2><div class="table-wrap"><table class="awards"><tbody>'+arows+'</tbody></table></div><p style="margin-top:30px"><a href="past.html">← All past conferences</a></p></div></section>')

@@ -1,7 +1,22 @@
 """Generates the static pages. Edit content below, then run: python3 build.py"""
-NAV=[("index.html","Home"),("about.html","About"),("conference.html","Conference"),("committees.html","Committees"),("members.html","Member Clubs"),("resources.html","Resources"),("news.html","News"),("contact.html","Contact")]
+NAV=[("index.html","Home"),("about.html","About"),("conference.html","Conference"),("committees.html","Committees"),("past.html","Past Conferences"),("members.html","Member Clubs"),("resources.html","Resources"),("news.html","News"),("contact.html","Contact")]
+# Past conferences, newest first: (slug, short name, dates, venue)
+PAST=[("vsph-2026","MUNCUS x VSPH 2026","Oct 4–6, 2026","Vanke School Pudong"),
+("wlsa-2026","MUNCUS x WLSA 2026","Aug 18–20, 2026","WLSA Shanghai Academy"),
+("shph-2026","MUNCUS x SHPH 2026","Jun 27–29, 2026","Shanghai Pinghe School"),
+("skfls-2026","MUNCUS x SKFLS 2026","Feb 25–27, 2026","Shanghai Koller Foreign Language School"),
+("wlsa-2025","MUNCUS x WLSA 2025","Aug 15–17, 2025","WLSA Shanghai Academy"),
+("vsph-2025","MUNCUS x VSPH 2025","Aug 5–7, 2025","Vanke School Pudong"),
+("shph-2025","MUNCUS x SHPH 2025","Jun 21–22, 2025","Shanghai Pinghe School"),
+("ypbs-2025","MUNCUS x YPBS 2025","Jan 18–19, 2025","Shanghai Yangpu Bilingual School")]
 def page(fn,title,body,desc="Model United Nations Club Union of Shanghai"):
-    nav="".join(f'<li><a href="{h}"{" class=\"active\"" if h==fn else ""}>{t}</a></li>' for h,t in NAV)
+    def li(h,t):
+        a=f'<a href="{h}"{" class=\"active\"" if h==fn else ""}>{t}</a>'
+        if h!="past.html": return f'<li>{a}</li>'
+        on=fn=="past.html" or fn.startswith("past-")
+        sub="".join(f'<li><a href="past-{p[0]}.html">{p[1]}</a></li>' for p in PAST)
+        return f'<li class="dropdown"><a href="past.html"{" class=\"active\"" if on else ""}>Past Conferences ▾</a><ul class="sub">{sub}</ul></li>'
+    nav="".join(li(h,t) for h,t in NAV)
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title} | MUNCUS</title><meta name="description" content="{desc}">
@@ -67,5 +82,17 @@ P["register.html"]=("Register",hero("Registration","Register your delegation for
 P["contact.html"]=("Contact",hero("Contact Us","Questions about the conference or membership? Get in touch.")+'''
 <section><div class="container split"><div><h2>Reach the Secretariat</h2><p><b>Email:</b> <a href="mailto:info@muncus.org">info@muncus.org</a><br><b>WeChat:</b> [Official Account]<br><b>Location:</b> Shanghai, China</p></div>
 <form><div class="field"><label>Name</label><input></div><div class="field"><label>Email</label><input type="email"></div><div class="field"><label>Message</label><textarea rows="5"></textarea></div><a class="btn btn-blue" href="mailto:info@muncus.org">Send via Email</a></form></div></section>''')
+P["past.html"]=("Past Conferences",hero("Past Conferences","A look back at every MUNCUS conference.")+'<section><div class="container grid g3">'+"".join(f'<a class="card" style="text-decoration:none;color:inherit" href="past-{p[0]}.html"><div class="ph" style="min-height:160px">[Cover photo]</div><span class="tag" style="margin-top:14px">{p[2]}</span><h3>{p[1]}</h3><p>{p[3]}</p><span style="color:var(--blue-dark)">View conference →</span></a>' for p in PAST)+'</div></section>')
+SEC=["Permanent Secretary-General","Secretary-General","Deputy Secretary-General","Deputy Secretary-General","Director of Academics","Director of Operations","Director of Logistics","Director of Media"]
+for slug,name,date,venue in PAST:
+    b=hero(name,f"{date} · {venue}")+f'''
+<section><div class="container split letter"><div class="ph psg">[Large photo: Permanent Secretary-General]</div><div><div class="eyebrow">Letter from the Permanent Secretary-General</div><h2>Welcome to {name}</h2>
+<p>Dear Delegates, Advisors and Guests,</p><p>[Letter paragraph 1]</p><p>[Letter paragraph 2]</p><p>[Letter paragraph 3]</p><p>Sincerely,<br><b>[Name]</b><br>Permanent Secretary-General, MUNCUS</p></div></div></section>
+<section class="soft"><div class="container"><div class="eyebrow">Leadership</div><h2>Secretariat</h2><div class="grid g4" style="margin-top:28px">'''+"".join(f'<div class="card person"><div class="ph avatar">[Photo]</div><h3>[Name]</h3><p>{r}</p></div>' for r in SEC)+'''</div></div></section>
+<section><div class="container"><div class="eyebrow">Committees</div><h2>Committees</h2><div class="grid g3" style="margin-top:28px">'''+"".join(f'<div class="card"><span class="tag">[ABBR]</span><h3>[Committee Full Name]</h3><p><b>Topic:</b> [Topic]</p><p>[Topic description]</p></div>' for _ in range(3))+'''</div></div></section>
+<section class="soft"><div class="container"><div class="eyebrow">Highlights</div><h2>Photo Highlights</h2><div class="carousel"><div class="track">'''+"".join(f'<div class="slide ph">[Highlight photo {i}]</div>' for i in range(1,7))+'''</div><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button><div class="dots"></div></div></div></section>
+<section><div class="container"><div class="eyebrow">Recognition</div><h2>Awards</h2><div class="table-wrap"><table class="awards"><thead><tr><th>Committee</th><th>Best Delegate</th><th>Outstanding Delegate</th><th>Honorable Mention</th></tr></thead><tbody>'''+"".join('<tr><td>[ABBR]</td><td>[Name — Country/School]</td><td>[Name — Country/School]</td><td>[Name — Country/School]</td></tr>' for _ in range(3))+'''</tbody></table></div>
+<p style="margin-top:30px"><a href="past.html">← All past conferences</a></p></div></section>'''
+    P[f"past-{slug}.html"]=(name,b)
 for fn,(t,b) in P.items(): open(fn,"w").write(page(fn,t,b))
 print("built",len(P),"pages")

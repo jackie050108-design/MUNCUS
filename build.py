@@ -61,7 +61,7 @@ P["about.html"]=("About",hero("About MUNCUS","Who we are, what we stand for, and
 <section><div class="container split"><div><div class="eyebrow">Our Mission</div><h2>Mission</h2><p>[Mission statement placeholder.]</p><h3>Vision</h3><p>[Vision placeholder.]</p></div><div class="ph">[Photo]</div></div></section>
 <section class="soft"><div class="container"><div class="eyebrow">History</div><h2>Our Story</h2><div class="timeline" style="margin-top:24px">
 <div><b>[Year]</b> — [MUNCUS founded …]</div><div><b>[Year]</b> — [First annual conference …]</div><div><b>[Year]</b> — [Milestone …]</div></div></div></section>
-<section><div class="container"><div class="eyebrow">Leadership</div><h2>Secretariat</h2><div class="grid g4" style="margin-top:28px">
+<section><div class="container"><div class="eyebrow">Leadership</div><h2>Secretariat</h2><div class="grid secretariat" style="margin-top:28px">
 '''+"".join(f'<div class="card"><div class="ph" style="min-height:180px">[Photo]</div><h3 style="margin-top:14px">[Name]</h3><p>{r}<br><small>[School]</small></p></div>' for r in ["Secretary-General","Deputy Secretary-General","Director of Academics","Director of Operations"])+'''</div></div></section>''')
 P["conference.html"]=("Conference",hero("MUNCUS [YEAR] Conference","Everything delegates, advisors and schools need to know.")+'''
 <section><div class="container grid g3"><div class="card"><span class="tag">When</span><h3>[Dates]</h3><p>[Day 1 – Day 3]</p></div><div class="card"><span class="tag">Where</span><h3>[Venue]</h3><p>[Address, Shanghai]</p></div><div class="card"><span class="tag">Fees</span><h3>[Fee]</h3><p>[Delegate / school fee details]</p></div></div></section>
@@ -91,6 +91,7 @@ SEC=["Permanent Secretary-General","Secretary-General","Deputy Secretary-General
 THEMED=("vsph",)
 def esc(x): return x.replace("&","&amp;").replace("<","&lt;")
 def person(r,n,sch="",ph=None):
+    if ph: return f'<figure class="poster"><img src="{ph}" alt="{n}, {r}, {sch}" loading="lazy"></figure>'
     av=f'<img class="avatar" src="{ph}" alt="{n}">' if ph else f'<div class="ph avatar">{"[Photo]" if n.startswith("[") else "".join(w[0] for w in n.split()[:2])}</div>'
     return f'<div class="card person">{av}<h3>{n}</h3><p>{r}</p>{f"<small>{sch}</small>" if sch else ""}</div>'
 def comm(m):
@@ -120,7 +121,7 @@ for slug,name,date,venue in PAST:
     slides="".join(f'<div class="slide ph">[Highlight photo {i}]</div>' for i in range(1,7))
     b=(f'<section class="page-hero conf-hero"><div class="container"><div><h1>{name}</h1><p>{date} · {venue}</p></div><div class="hero-badges">{badges}</div></div></section>'
        f'<section><div class="container split letter">{photo}<div><div class="eyebrow">Letter from the Permanent Secretary-General</div><h2>Welcome to {name}</h2>{letter}<p class="sign">{sign}</p></div></div></section>'
-       '<section class="soft"><div class="container"><div class="eyebrow">Leadership</div><h2>Secretariat</h2><div class="grid g4" style="margin-top:28px">'+"".join(person(*p) for p in secr)+'</div></div></section>'
+       '<section class="soft"><div class="container"><div class="eyebrow">Leadership</div><h2>Secretariat</h2><div class="grid secretariat" style="margin-top:28px">'+"".join(person(*p) for p in secr)+'</div></div></section>'
        '<section><div class="container"><div class="eyebrow">Committees</div><h2>Committees</h2><div class="grid g3" style="margin-top:28px">'+"".join(comm(m) for m in comms)+'</div></div></section>'
        f'<section class="soft"><div class="container"><div class="eyebrow">Highlights</div><h2>Photo Highlights</h2><div class="carousel"><div class="track">{slides}</div><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button><div class="dots"></div></div></div></section>'
        '<section><div class="container"><div class="eyebrow">Recognition</div><h2>Awards</h2><div class="table-wrap"><table class="awards"><tbody>'+arows+'</tbody></table></div><p style="margin-top:30px"><a href="past.html">← All past conferences</a></p></div></section>')

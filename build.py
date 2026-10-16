@@ -126,7 +126,7 @@ for slug,name,date,venue in PAST:
        '<section class="soft"><div class="container"><h2>Secretariat</h2><div class="grid secretariat" style="margin-top:28px">'+"".join(person(*p) for p in secr)+'</div></div></section>'
        '<section><div class="container"><h2>Committees</h2><div class="grid g3" style="margin-top:28px">'+"".join(comm(m) for m in comms)+'</div></div></section>'
        f'<section class="soft"><div class="container"><h2>Photo Highlights</h2><div class="carousel"><div class="track">{slides}</div><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button><div class="dots"></div></div></div></section>'
-       '<section><div class="container"><h2>Awards</h2><div class="awards-layout'+(' has-photos' if aph else '')+'"><div class="table-wrap"><table class="awards"><tbody>'+arows+'</tbody></table></div>'+award_car+'</div><p style="margin-top:30px"><a href="past.html">← All past conferences</a></p></div></section>')
+       '<section><div class="container wide"><h2>Awards</h2><div class="awards-layout'+(' has-photos' if aph else '')+'"><div class="table-wrap"><table class="awards"><tbody>'+arows+'</tbody></table></div>'+award_car+'</div><p style="margin-top:30px"><a href="past.html">← All past conferences</a></p></div></section>')
     P[f"past-{slug}.html"]=(name,b,theme)
 for fn,v in P.items(): open(fn,"w").write(page(fn,v[0],v[1],theme=v[2] if len(v)>2 else ""))
 print("built",len(P),"pages")

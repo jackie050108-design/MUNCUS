@@ -73,3 +73,4 @@ img.avatar{width:150px;height:150px;border-radius:50%;object-fit:cover;object-po
 .letter h2{font-size:clamp(1.3rem,2.3vw,1.85rem);white-space:nowrap}@media(max-width:800px){.letter h2{white-space:normal}}
 /* Georgia for page content (header, banners and footer keep the original fonts) */
 main>section:not(.hero):not(.page-hero),main>section:not(.hero):not(.page-hero) :is(h1,h2,h3,h4,p,li,td,th,a,b,small,span,label,input,select,textarea,button,div),main>.stats,main>.stats *{font-family:Georgia,"Times New Roman","Noto Serif SC",serif}
+.photo-car{margin-top:40px}.photo-car .slide{min-height:0}.photo-car .slide img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}.photo-car .dots span{background:rgba(255,255,255,.5)}.photo-car .dots span.on{background:#fff}

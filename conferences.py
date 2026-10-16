@@ -41,6 +41,7 @@ CONF = {
          director=("Andy Wei", "Wenzhou Kean University"),
          ads=[("Kelina Yang", "Pudong Foreign Languages School"), ("Katherine Yang", "Shanghai Foreign Language School Affiliated to SISU")]),
   ],
+  award_photos=["assets/img/vsph/awards-2026/ussrgc.jpg", "assets/img/vsph/awards-2026/unga.jpg", "assets/img/vsph/awards-2026/adhoc.jpg"],
   awards=[
     ("USSRGC", "Best Delegate", "Igor Kurchatov", "Zihao Wang", "Shanghai East Foreign Language School Affiliated to SISU"),
     ("USSRGC", "Outstanding Delegate", "Vyacheslav Molotov", "Anzhe Wang", "Ulink College of Shanghai"),

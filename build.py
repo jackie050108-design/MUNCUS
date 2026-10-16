@@ -9,21 +9,24 @@ PAST=[("vsph-2026","MUNCUS x VSPH 2026","Oct 4–6, 2026","Vanke School Pudong")
 ("vsph-2025","MUNCUS x VSPH 2025","Aug 5–7, 2025","Vanke School Pudong"),
 ("shph-2025","MUNCUS x SHPH 2025","Jun 21–22, 2025","Shanghai Pinghe School"),
 ("ypbs-2025","MUNCUS x YPBS 2025","Jan 18–19, 2025","Shanghai Yangpu Bilingual School")]
+# Top-level menu groups: (label, landing page, [(page, label), ...])
+MENU=[("About","about.html",[("about.html","About MUNCUS"),("members.html","Member Clubs"),("news.html","News"),("contact.html","Contact")]),
+("Conference","conference.html",[("conference.html","Overview"),("committees.html","Committees"),("resources.html","Delegate Resources")]),
+("Past Conferences","past.html",None)]
 def page(fn,title,body,desc="Model United Nations Club Union of Shanghai"):
-    def li(h,t):
-        a=f'<a href="{h}"{" class=\"active\"" if h==fn else ""}>{t}</a>'
-        if h!="past.html": return f'<li>{a}</li>'
-        on=fn=="past.html" or fn.startswith("past-")
-        sub="".join(f'<li><a href="past-{p[0]}.html">{p[1]}</a></li>' for p in PAST)
-        return f'<li class="dropdown"><a href="past.html"{" class=\"active\"" if on else ""}>Past Conferences ▾</a><ul class="sub">{sub}</ul></li>'
-    nav="".join(li(h,t) for h,t in NAV)
+    items=[]
+    for label,land,subs in MENU:
+        if subs is None: subs=[(f"past-{p[0]}.html",p[1]) for p in PAST]
+        on=fn==land or any(fn==h for h,_ in subs)
+        sub="".join(f'<li><a href="{h}">{t}</a></li>' for h,t in subs)
+        items.append(f'<li class="dropdown"><a href="{land}"{" class=\"active\"" if on else ""}>{label}<span class="caret"></span></a><ul class="sub">{sub}</ul></li>')
+    nav="".join(items)
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title} | MUNCUS</title><meta name="description" content="{desc}">
 <link rel="canonical" href="https://muncus.org/{"" if fn=="index.html" else fn}"><link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;800&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css"></head><body>
-<div class="topbar"><div class="container"><span>上海模拟联合国社团联盟 · Model United Nations Club Union of Shanghai</span><span class="hide-sm"><a href="mailto:info@muncus.org">info@muncus.org</a></span></div></div>
 <header class="site"><div class="container"><a class="brand" href="index.html"><img src="assets/img/emblem.png" alt="MUNCUS emblem"><span><b>MUNCUS</b><small>上海模拟联合国社团联盟</small></span></a>
 <button class="burger" aria-label="Menu">☰</button><nav class="main"><ul>{nav}<li><a class="cta" href="register.html">Register</a></li></ul></nav></div></header>
 <main>{body}</main>

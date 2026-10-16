@@ -6,17 +6,17 @@ img{max-width:100%;display:block}a{color:var(--blue-dark)}
 h1,h2,h3{font-family:"Montserrat","Noto Sans SC",sans-serif;line-height:1.2;color:var(--navy);margin:0 0 .5em}
 h2{font-size:clamp(1.6rem,3vw,2.3rem)}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;font-weight:700;color:var(--blue)}
 /* top bar + nav */
-.topbar{background:var(--navy);color:#cfe3f2;font-size:.82rem}.topbar .container{display:flex;justify-content:space-between;gap:12px;padding:6px 20px}.topbar a{color:#fff;text-decoration:none}
-header.site{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
-header.site .container{display:flex;align-items:center;justify-content:space-between;height:74px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none}.brand img{height:46px;width:auto}
-.brand b{font-family:Montserrat,sans-serif;font-size:1.35rem;color:var(--blue);letter-spacing:.06em;display:block;line-height:1}.brand small{white-space:nowrap;color:var(--muted);font-size:.72rem}
-nav.main ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;align-items:center}
-nav.main a{display:block;white-space:nowrap;padding:8px 10px;border-radius:6px;text-decoration:none;color:var(--ink);font-weight:600;font-size:.93rem}
-nav.main a:hover,nav.main a.active{color:var(--blue);background:var(--soft)}
-nav.main a.cta{background:var(--blue);color:#fff}nav.main a.cta:hover{background:var(--blue-dark);color:#fff}
+header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--line)}
+header.site .container{display:flex;align-items:center;justify-content:space-between;height:84px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}.brand img{height:50px;width:auto}
+.brand b{font-family:Montserrat,sans-serif;font-size:1.4rem;color:var(--blue);letter-spacing:.12em;display:block;line-height:1}.brand small{white-space:nowrap;color:var(--muted);font-size:.7rem;letter-spacing:.18em;display:block;margin-top:4px}
+nav.main>ul{list-style:none;margin:0;padding:0;display:flex;gap:34px;align-items:center}
+nav.main>ul>li>a{display:flex;align-items:center;gap:6px;padding:30px 0;text-decoration:none;color:var(--navy);font-weight:600;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;position:relative}
+nav.main>ul>li>a::after{content:"";position:absolute;left:0;right:0;bottom:22px;height:2px;background:var(--blue);transform:scaleX(0);transition:transform .25s}
+nav.main>ul>li>a:hover::after,nav.main>ul>li>a.active::after{transform:scaleX(1)}nav.main>ul>li>a.active{color:var(--blue)}
+.caret{width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);opacity:.6}
+nav.main a.cta{background:var(--blue);color:#fff;padding:11px 22px;border-radius:999px;text-decoration:none;font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}nav.main a.cta:hover{background:var(--blue-dark)}
 .burger{display:none;background:none;border:0;font-size:1.7rem;cursor:pointer;color:var(--navy)}
-@media(max-width:1180px){.burger{display:block}nav.main{display:none;position:absolute;top:74px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line)}nav.main.open{display:block}nav.main ul{flex-direction:column;align-items:stretch;padding:10px 20px}.topbar .hide-sm{display:none}}
 /* hero */
 .hero{background:linear-gradient(135deg,rgba(2,144,216,.94),rgba(11,42,68,.92)),url(../img/logo-white-on-blue.jpg) center/cover;color:#fff;padding:110px 0 120px;text-align:center}
 .hero h1{color:#fff;font-size:clamp(2.2rem,5vw,3.8rem);letter-spacing:.04em}.hero p{font-size:1.15rem;max-width:720px;margin:0 auto 28px;opacity:.95}
@@ -40,9 +40,12 @@ form .field{margin-bottom:16px}form label{display:block;font-weight:600;margin-b
 footer.site{background:var(--navy);color:#b9cfe0;padding:60px 0 20px;font-size:.92rem}footer.site h4{color:#fff;margin:0 0 12px}footer.site a{color:#b9cfe0;text-decoration:none}footer.site a:hover{color:#fff}
 footer.site ul{list-style:none;padding:0;margin:0}footer.site li{margin-bottom:6px}.foot-bottom{border-top:1px solid #1f4566;margin-top:40px;padding-top:18px;text-align:center;font-size:.82rem}
 /* dropdown */
-.dropdown{position:relative}.dropdown .sub{display:none;position:absolute;top:100%;left:0;min-width:240px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 30px rgba(11,42,68,.12);padding:6px;flex-direction:column;gap:0;z-index:60}
-.dropdown:hover .sub,.dropdown:focus-within .sub{display:flex}.dropdown .sub a{font-weight:500;white-space:nowrap}
-@media(max-width:1180px){.dropdown .sub{display:flex;position:static;box-shadow:none;border:0;padding:0 0 0 14px;min-width:0}}
+.dropdown{position:relative}.dropdown .sub{list-style:none;margin:0;display:block;visibility:hidden;opacity:0;transform:translateY(6px);transition:.2s;position:absolute;top:100%;left:-18px;min-width:240px;background:#fff;border-top:3px solid var(--blue);border-radius:0 0 10px 10px;box-shadow:0 18px 40px rgba(11,42,68,.14);padding:10px 0;z-index:60}
+.dropdown:hover .sub,.dropdown:focus-within .sub{visibility:visible;opacity:1;transform:none}
+.dropdown .sub a{display:block;padding:9px 20px;color:var(--ink);text-decoration:none;font-size:.92rem;white-space:nowrap}.dropdown .sub a:hover{background:var(--soft);color:var(--blue)}
+@media(max-width:960px){.burger{display:block}nav.main{display:none;position:absolute;top:84px;left:0;right:0;background:#fff;box-shadow:0 10px 30px rgba(11,42,68,.1);max-height:calc(100vh - 84px);overflow:auto}nav.main.open{display:block}
+nav.main>ul{flex-direction:column;align-items:stretch;gap:0;padding:10px 20px 20px}nav.main>ul>li>a{padding:14px 0}nav.main>ul>li>a::after{display:none}
+.dropdown .sub{visibility:visible;opacity:1;transform:none;position:static;box-shadow:none;border:0;padding:0 0 8px 12px}.caret{display:none}nav.main a.cta{display:block;text-align:center;margin-top:10px}}
 /* past conference */
 .letter{align-items:start}.psg{min-height:520px}
 .person{text-align:center}.person .avatar{width:150px;height:150px;min-height:0;border-radius:50%;margin:0 auto 14px}.person h3{font-size:1.05rem;margin:0}.person p{color:var(--muted);margin:4px 0 0;font-size:.9rem}

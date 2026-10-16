@@ -47,9 +47,22 @@ footer.site ul{list-style:none;padding:0;margin:0}footer.site li{margin-bottom:6
 nav.main>ul{flex-direction:column;align-items:stretch;gap:0;padding:10px 20px 20px}nav.main>ul>li>a{padding:14px 0}nav.main>ul>li>a::after{display:none}
 .dropdown .sub{visibility:visible;opacity:1;transform:none;position:static;box-shadow:none;border:0;padding:0 0 8px 12px}.caret{display:none}nav.main a.cta{display:block;text-align:center;margin-top:10px}}
 /* past conference */
-.letter{align-items:start}.psg{min-height:520px}
+.letter{align-items:start}
 .person{text-align:center}.person .avatar{width:150px;height:150px;min-height:0;border-radius:50%;margin:0 auto 14px}.person h3{font-size:1.05rem;margin:0}.person p{color:var(--muted);margin:4px 0 0;font-size:.9rem}
 .carousel{position:relative;overflow:hidden;border-radius:var(--radius);margin-top:28px}.track{display:flex;transition:transform .6s ease}.slide{flex:0 0 100%;min-height:440px;border-radius:0}
 .carousel button{position:absolute;top:50%;transform:translateY(-50%);background:rgba(11,42,68,.6);color:#fff;border:0;width:44px;height:44px;border-radius:50%;font-size:1.6rem;cursor:pointer}.prev{left:12px}.next{right:12px}
 .dots{position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:center;gap:8px}.dots span{width:10px;height:10px;border-radius:50%;background:rgba(11,42,68,.3);cursor:pointer}.dots span.on{background:var(--blue)}
 .table-wrap{overflow-x:auto;margin-top:24px}.awards{width:100%;border-collapse:collapse;min-width:640px}.awards th,.awards td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left}.awards th{background:var(--navy);color:#fff}.awards tr:nth-child(even) td{background:var(--soft)}
+/* conference themes */
+body.theme-vsph{--blue:#8b0010;--blue-dark:#6a000c;--navy:#3a0a10;--soft:#faf1f2;--line:#ecdcde}
+.theme-vsph .stats b,.theme-vsph footer.site a:hover{color:#ffb3bb}
+.conf-hero .container{display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.hero-badges{display:flex;align-items:flex-end;gap:24px}.hero-badges img{height:150px;width:auto}.hero-badges img:first-child{height:110px}
+img.psg{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:var(--radius);box-shadow:0 20px 40px rgba(0,0,0,.15)}.ph.psg{aspect-ratio:2/3;min-height:0}
+.letter{grid-template-columns:2fr 3fr}.letter .sign{margin-top:24px;color:var(--navy)}
+img.avatar{width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:top;margin:0 auto 14px}
+.person .ph.avatar{font-family:Montserrat;font-size:2rem;color:var(--blue);background:var(--soft);border-style:solid}.person small{display:block;color:var(--muted);font-size:.78rem;margin-top:6px}
+.muted{color:var(--muted)}.committee .staff{border-top:1px solid var(--line);margin-top:16px;padding-top:14px;display:grid;gap:10px;font-size:.92rem}
+.committee .staff ul{list-style:none;padding:0;margin:4px 0 0}.committee .staff small{display:block;color:var(--muted);font-size:.78rem}
+.award{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.78rem;font-weight:700;white-space:nowrap}.a-best{background:#f7e3a1;color:#6b4e00}.a-outstanding{background:#e3e7ec;color:#3d4a57}.a-honorable{background:#f3dccb;color:#7a3e14}
+@media(max-width:800px){.letter{grid-template-columns:1fr}.letter img.psg{max-width:360px;margin:0 auto}.hero-badges img{height:100px}.hero-badges img:first-child{height:76px}}

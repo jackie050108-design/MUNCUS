@@ -13,7 +13,7 @@ PAST=[("vsph-2026","MUNCUS x VSPH 2026","Oct 4–6, 2026","Vanke School Pudong")
 MENU=[("About","about.html",[("about.html","About MUNCUS"),("members.html","Member Clubs"),("news.html","News"),("contact.html","Contact")]),
 ("Conference","conference.html",[("conference.html","Overview"),("committees.html","Committees"),("resources.html","Delegate Resources")]),
 ("Past Conferences","past.html",None)]
-def page(fn,title,body,desc="Model United Nations Club Union of Shanghai"):
+def page(fn,title,body,desc="Model United Nations Club Union of Shanghai",theme=""):
     items=[]
     for label,land,subs in MENU:
         if subs is None: subs=[(f"past-{p[0]}.html",p[1]) for p in PAST]
@@ -26,7 +26,7 @@ def page(fn,title,body,desc="Model United Nations Club Union of Shanghai"):
 <title>{title} | MUNCUS</title><meta name="description" content="{desc}">
 <link rel="canonical" href="https://muncus.org/{"" if fn=="index.html" else fn}"><link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;800&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css"></head><body>
+<link rel="stylesheet" href="assets/css/style.css"></head><body{f' class="theme-{theme}"' if theme else ""}>
 <header class="site"><div class="container"><a class="brand" href="index.html"><img src="assets/img/emblem.png" alt="MUNCUS emblem"><span><b>MUNCUS</b><small>上海模拟联合国社团联盟</small></span></a>
 <button class="burger" aria-label="Menu">☰</button><nav class="main"><ul>{nav}<li><a class="cta" href="register.html">Register</a></li></ul></nav></div></header>
 <main>{body}</main>
@@ -86,16 +86,38 @@ P["contact.html"]=("Contact",hero("Contact Us","Questions about the conference o
 <section><div class="container split"><div><h2>Reach the Secretariat</h2><p><b>Email:</b> <a href="mailto:info@muncus.org">info@muncus.org</a><br><b>WeChat:</b> [Official Account]<br><b>Location:</b> Shanghai, China</p></div>
 <form><div class="field"><label>Name</label><input></div><div class="field"><label>Email</label><input type="email"></div><div class="field"><label>Message</label><textarea rows="5"></textarea></div><a class="btn btn-blue" href="mailto:info@muncus.org">Send via Email</a></form></div></section>''')
 P["past.html"]=("Past Conferences",hero("Past Conferences","A look back at every MUNCUS conference.")+'<section><div class="container grid g3">'+"".join(f'<a class="card" style="text-decoration:none;color:inherit" href="past-{p[0]}.html"><div class="ph" style="min-height:160px">[Cover photo]</div><span class="tag" style="margin-top:14px">{p[2]}</span><h3>{p[1]}</h3><p>{p[3]}</p><span style="color:var(--blue-dark)">View conference →</span></a>' for p in PAST)+'</div></section>')
+from conferences import CONF
 SEC=["Permanent Secretary-General","Secretary-General","Deputy Secretary-General","Deputy Secretary-General","Director of Academics","Director of Operations","Director of Logistics","Director of Media"]
+THEMED=("vsph",)
+def esc(x): return x.replace("&","&amp;").replace("<","&lt;")
+def person(r,n,sch="",ph=None):
+    av=f'<img class="avatar" src="{ph}" alt="{n}">' if ph else f'<div class="ph avatar">{"[Photo]" if n.startswith("[") else "".join(w[0] for w in n.split()[:2])}</div>'
+    return f'<div class="card person">{av}<h3>{n}</h3><p>{r}</p>{f"<small>{sch}</small>" if sch else ""}</div>'
+def comm(m):
+    ads="".join(f"<li>{n}<small>{sch}</small></li>" for n,sch in m.get("ads",[]))
+    d=m["director"]
+    return (f'<div class="card committee"><span class="tag">{m["abbr"]}</span><h3>{m["name"]}</h3><p><b>Topic:</b> {m["topic"]}</p>'
+            f'<p class="muted">{m.get("desc") or "[Topic description]"}</p><div class="staff"><div><b>Director</b><ul><li>{d[0]}<small>{d[1]}</small></li></ul></div>'
+            + (f'<div><b>Assistant Directors</b><ul>{ads}</ul></div>' if ads else "") + '</div></div>')
 for slug,name,date,venue in PAST:
-    b=hero(name,f"{date} · {venue}")+f'''
-<section><div class="container split letter"><div class="ph psg">[Large photo: Permanent Secretary-General]</div><div><div class="eyebrow">Letter from the Permanent Secretary-General</div><h2>Welcome to {name}</h2>
-<p>Dear Delegates, Advisors and Guests,</p><p>[Letter paragraph 1]</p><p>[Letter paragraph 2]</p><p>[Letter paragraph 3]</p><p>Sincerely,<br><b>[Name]</b><br>Permanent Secretary-General, MUNCUS</p></div></div></section>
-<section class="soft"><div class="container"><div class="eyebrow">Leadership</div><h2>Secretariat</h2><div class="grid g4" style="margin-top:28px">'''+"".join(f'<div class="card person"><div class="ph avatar">[Photo]</div><h3>[Name]</h3><p>{r}</p></div>' for r in SEC)+'''</div></div></section>
-<section><div class="container"><div class="eyebrow">Committees</div><h2>Committees</h2><div class="grid g3" style="margin-top:28px">'''+"".join(f'<div class="card"><span class="tag">[ABBR]</span><h3>[Committee Full Name]</h3><p><b>Topic:</b> [Topic]</p><p>[Topic description]</p></div>' for _ in range(3))+'''</div></div></section>
-<section class="soft"><div class="container"><div class="eyebrow">Highlights</div><h2>Photo Highlights</h2><div class="carousel"><div class="track">'''+"".join(f'<div class="slide ph">[Highlight photo {i}]</div>' for i in range(1,7))+'''</div><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button><div class="dots"></div></div></div></section>
-<section><div class="container"><div class="eyebrow">Recognition</div><h2>Awards</h2><div class="table-wrap"><table class="awards"><thead><tr><th>Committee</th><th>Best Delegate</th><th>Outstanding Delegate</th><th>Honorable Mention</th></tr></thead><tbody>'''+"".join('<tr><td>[ABBR]</td><td>[Name — Country/School]</td><td>[Name — Country/School]</td><td>[Name — Country/School]</td></tr>' for _ in range(3))+'''</tbody></table></div>
-<p style="margin-top:30px"><a href="past.html">← All past conferences</a></p></div></section>'''
-    P[f"past-{slug}.html"]=(name,b)
-for fn,(t,b) in P.items(): open(fn,"w").write(page(fn,t,b))
+    c=CONF.get(slug,{})
+    theme=slug.split("-")[0] if slug.split("-")[0] in THEMED else ""
+    psg=c.get("psg",{})
+    photo=f'<img class="psg" src="{psg["photo"]}" alt="{psg["name"]}">' if psg.get("photo") else '<div class="ph psg">[Large photo: Permanent Secretary-General]</div>'
+    letter="".join(f"<p>{esc(p)}</p>" for p in c.get("letter",["Dear Delegates,","[Letter paragraph 1]","[Letter paragraph 2]","[Letter paragraph 3]"]))
+    sign=c.get("signoff","Sincerely,<br><b>[Name]</b><br>Permanent Secretary-General")
+    badges="".join(f'<img src="{x}" alt="">' for x in c.get("hero_images",[]))
+    secr=c.get("secretariat",[(r,"[Name]") for r in SEC])
+    comms=c.get("committees",[dict(abbr="[ABBR]",name="[Committee Full Name]",topic="[Topic]",director=("[Name]","[School]"),ads=[])]*3)
+    awards=c.get("awards",[("[ABBR]",a,"[Country / Role]","[Name]","[School]") for a in ("Best Delegate","Outstanding Delegate","Honorable Mention")])
+    arows="".join(f'<tr><td>{cm}</td><td><span class="award a-{aw.split()[0].lower()}">{aw}</span></td><td>{role}</td><td><b>{n}</b></td><td>{sch}</td></tr>' for cm,aw,role,n,sch in awards)
+    slides="".join(f'<div class="slide ph">[Highlight photo {i}]</div>' for i in range(1,7))
+    b=(f'<section class="page-hero conf-hero"><div class="container"><div><h1>{name}</h1><p>{date} · {venue}</p></div><div class="hero-badges">{badges}</div></div></section>'
+       f'<section><div class="container split letter">{photo}<div><div class="eyebrow">Letter from the Permanent Secretary-General</div><h2>Welcome to {name}</h2>{letter}<p class="sign">{sign}</p></div></div></section>'
+       '<section class="soft"><div class="container"><div class="eyebrow">Leadership</div><h2>Secretariat</h2><div class="grid g4" style="margin-top:28px">'+"".join(person(*p) for p in secr)+'</div></div></section>'
+       '<section><div class="container"><div class="eyebrow">Committees</div><h2>Committees</h2><div class="grid g3" style="margin-top:28px">'+"".join(comm(m) for m in comms)+'</div></div></section>'
+       f'<section class="soft"><div class="container"><div class="eyebrow">Highlights</div><h2>Photo Highlights</h2><div class="carousel"><div class="track">{slides}</div><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button><div class="dots"></div></div></div></section>'
+       '<section><div class="container"><div class="eyebrow">Recognition</div><h2>Awards</h2><div class="table-wrap"><table class="awards"><thead><tr><th>Committee</th><th>Award</th><th>Country / Role</th><th>Delegate</th><th>School</th></tr></thead><tbody>'+arows+'</tbody></table></div><p style="margin-top:30px"><a href="past.html">← All past conferences</a></p></div></section>')
+    P[f"past-{slug}.html"]=(name,b,theme)
+for fn,v in P.items(): open(fn,"w").write(page(fn,v[0],v[1],theme=v[2] if len(v)>2 else ""))
 print("built",len(P),"pages")

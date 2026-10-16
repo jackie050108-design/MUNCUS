@@ -14,7 +14,7 @@ VSPH_2026_LETTER = [
 ]
 CONF = {
 "vsph-2026": dict(
-  hero_images=VSPH_IMAGES,
+  hero_images=["assets/img/vsph/stella-vsph.png"],
   psg=dict(name="Leo Wang", photo="assets/img/vsph/psg-2026.jpg"),
   letter=VSPH_2026_LETTER,
   signoff="Warm regards,<br><b>Leo Wang</b><br>Permanent Secretary-General, MUNCUS x VSPH 2026<br><small>Vanke School Pudong, Class of 2027</small>",

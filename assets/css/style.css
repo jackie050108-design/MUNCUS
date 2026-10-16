@@ -73,10 +73,3 @@ img.avatar{width:150px;height:150px;border-radius:50%;object-fit:cover;object-po
 .letter h2{font-size:clamp(1.3rem,2.3vw,1.85rem);white-space:nowrap}@media(max-width:800px){.letter h2{white-space:normal}}
 /* Georgia for page content (header, banners and footer keep the original fonts) */
 main>section:not(.hero):not(.page-hero),main>section:not(.hero):not(.page-hero) :is(h1,h2,h3,h4,p,li,td,th,a,b,small,span,label,input,select,textarea,button,div),main>.stats,main>.stats *{font-family:Georgia,"Times New Roman","Noto Serif SC",serif}
-/* secretariat groups */
-.sec-wrap{margin-top:32px}.sec-row{display:flex;flex-wrap:wrap;justify-content:center;gap:28px;margin-bottom:36px}
-.sec-item{flex:0 1 calc((100% - 56px)/3);text-align:center}.sec-item .poster{margin:0 0 12px}
-.poster-ph{aspect-ratio:3/2;min-height:0;margin-bottom:12px}
-.sec-name{font-size:1.15rem;color:var(--ink)}.sec-role{font-weight:700;color:var(--navy);margin-top:2px}
-.sec-group{text-align:center;color:var(--blue);font-size:1.35rem;padding-bottom:12px;border-bottom:1px solid #b9a9ab;margin:12px 0 24px}.sec-group i{font-style:italic}
-@media(max-width:800px){.sec-item{flex-basis:100%}}

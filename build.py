@@ -31,10 +31,10 @@ def page(fn,title,body,desc="Model United Nations Club Union of Shanghai",theme=
 <button class="burger" aria-label="Menu">☰</button><nav class="main"><ul>{nav}<li><a class="cta" href="register.html">Register</a></li></ul></nav></div></header>
 <main>{body}</main>
 <footer class="site"><div class="container"><div class="grid g4">
-<div><img src="assets/img/emblem.png" alt="" style="height:60px;filter:brightness(0) invert(1);margin-bottom:12px"><p>Connecting Model UN clubs across Shanghai since [YEAR].</p></div>
+<div><img src="assets/img/emblem.png" alt="" style="height:60px;filter:brightness(0) invert(1);margin-bottom:12px"><p>Connecting Model UN clubs across Shanghai since 2024.</p></div>
 <div><h4>Explore</h4><ul><li><a href="about.html">About Us</a></li><li><a href="conference.html">Conference</a></li><li><a href="committees.html">Committees</a></li><li><a href="members.html">Member Clubs</a></li></ul></div>
 <div><h4>Participate</h4><ul><li><a href="register.html">Register</a></li><li><a href="resources.html">Delegate Resources</a></li><li><a href="news.html">News</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-<div><h4>Connect</h4><ul><li><a href="mailto:info@muncus.org">info@muncus.org</a></li><li>WeChat: [Official Account]</li><li>Instagram: [@handle]</li><li>Shanghai, China</li></ul></div>
+<div><h4>Connect</h4><ul><li><a href="mailto:info@muncus.org">info@muncus.org</a></li><li>WeChat: MUNCUS</li><li><a href="https://www.instagram.com/muncus_off/" target="_blank" rel="noopener">Instagram: @muncus_off</a></li><li>Shanghai, China</li></ul></div>
 </div><div class="foot-bottom">© <span data-year></span> MUNCUS · Model United Nations Club Union of Shanghai · muncus.org</div></div></footer>
 <script src="assets/js/main.js"></script></body></html>'''
 def hero(t,s): return f'<section class="page-hero"><div class="container"><h1>{t}</h1><p>{s}</p></div></section>'
@@ -83,7 +83,7 @@ P["register.html"]=("Register",hero("Registration","Register your delegation for
 <div class="field"><label>Number of Delegates</label><input type="number" min="1"></div><div class="field"><label>Registration Type</label><select><option>Delegation</option><option>Individual Delegate</option></select></div>
 <button class="btn btn-blue" type="button">Submit (coming soon)</button></form></div></section>''')
 P["contact.html"]=("Contact",hero("Contact Us","Questions about the conference or membership? Get in touch.")+'''
-<section><div class="container split"><div><h2>Reach the Secretariat</h2><p><b>Email:</b> <a href="mailto:info@muncus.org">info@muncus.org</a><br><b>WeChat:</b> [Official Account]<br><b>Location:</b> Shanghai, China</p></div>
+<section><div class="container split"><div><h2>Reach the Secretariat</h2><p><b>Email:</b> <a href="mailto:info@muncus.org">info@muncus.org</a><br><b>WeChat:</b> MUNCUS<br><b>Instagram:</b> <a href="https://www.instagram.com/muncus_off/" target="_blank" rel="noopener">@muncus_off</a><br><b>Location:</b> Shanghai, China</p></div>
 <form><div class="field"><label>Name</label><input></div><div class="field"><label>Email</label><input type="email"></div><div class="field"><label>Message</label><textarea rows="5"></textarea></div><a class="btn btn-blue" href="mailto:info@muncus.org">Send via Email</a></form></div></section>''')
 P["past.html"]=("Past Conferences",hero("Past Conferences","A look back at every MUNCUS conference.")+'<section><div class="container grid g3">'+"".join(f'<a class="card" style="text-decoration:none;color:inherit" href="past-{p[0]}.html"><div class="ph" style="min-height:160px">[Cover photo]</div><span class="tag" style="margin-top:14px">{p[2]}</span><h3>{p[1]}</h3><p>{p[3]}</p><span style="color:var(--blue-dark)">View conference →</span></a>' for p in PAST)+'</div></section>')
 from conferences import CONF

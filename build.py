@@ -120,11 +120,11 @@ for slug,name,date,venue in PAST:
         arows+=f'<tr class="group"><th colspan="4">{ctitle(cm)}</th></tr>'+"".join(f'<tr><td>{aw}</td><td>{role}</td><td><b>{n}</b></td><td>{sch}</td></tr>' for c2,aw,role,n,sch in awards if c2==cm)
     slides="".join(f'<div class="slide ph">[Highlight photo {i}]</div>' for i in range(1,7))
     b=(f'<section class="page-hero conf-hero"><div class="container"><div><h1>{name}</h1><p>{date} · {venue}</p></div><div class="hero-badges">{badges}</div></div></section>'
-       f'<section><div class="container split letter">{photo}<div><div class="eyebrow">Letter from the Permanent Secretary-General</div><h2>Welcome to {name}</h2>{letter}<p class="sign">{sign}</p></div></div></section>'
-       '<section class="soft"><div class="container"><div class="eyebrow">Leadership</div><h2>Secretariat</h2><div class="grid secretariat" style="margin-top:28px">'+"".join(person(*p) for p in secr)+'</div></div></section>'
-       '<section><div class="container"><div class="eyebrow">Committees</div><h2>Committees</h2><div class="grid g3" style="margin-top:28px">'+"".join(comm(m) for m in comms)+'</div></div></section>'
-       f'<section class="soft"><div class="container"><div class="eyebrow">Highlights</div><h2>Photo Highlights</h2><div class="carousel"><div class="track">{slides}</div><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button><div class="dots"></div></div></div></section>'
-       '<section><div class="container"><div class="eyebrow">Recognition</div><h2>Awards</h2><div class="table-wrap"><table class="awards"><tbody>'+arows+'</tbody></table></div><p style="margin-top:30px"><a href="past.html">← All past conferences</a></p></div></section>')
+       f'<section><div class="container split letter">{photo}<div><h2>Welcome to {name}</h2>{letter}<p class="sign">{sign}</p></div></div></section>'
+       '<section class="soft"><div class="container"><h2>Secretariat</h2><div class="grid secretariat" style="margin-top:28px">'+"".join(person(*p) for p in secr)+'</div></div></section>'
+       '<section><div class="container"><h2>Committees</h2><div class="grid g3" style="margin-top:28px">'+"".join(comm(m) for m in comms)+'</div></div></section>'
+       f'<section class="soft"><div class="container"><h2>Photo Highlights</h2><div class="carousel"><div class="track">{slides}</div><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button><div class="dots"></div></div></div></section>'
+       '<section><div class="container"><h2>Awards</h2><div class="table-wrap"><table class="awards"><tbody>'+arows+'</tbody></table></div><p style="margin-top:30px"><a href="past.html">← All past conferences</a></p></div></section>')
     P[f"past-{slug}.html"]=(name,b,theme)
 for fn,v in P.items(): open(fn,"w").write(page(fn,v[0],v[1],theme=v[2] if len(v)>2 else ""))
 print("built",len(P),"pages")

@@ -73,17 +73,10 @@ img.avatar{width:150px;height:150px;border-radius:50%;object-fit:cover;object-po
 .letter h2{font-size:clamp(1.3rem,2.3vw,1.85rem);white-space:nowrap}@media(max-width:800px){.letter h2{white-space:normal}}
 /* Georgia for page content (header, banners and footer keep the original fonts) */
 main>section:not(.hero):not(.page-hero),main>section:not(.hero):not(.page-hero) :is(h1,h2,h3,h4,p,li,td,th,a,b,small,span,label,input,select,textarea,button,div),main>.stats,main>.stats *{font-family:Georgia,"Times New Roman","Noto Serif SC",serif}
-/* secretariat tiers */
-.sec-wrap{margin-top:40px;display:grid;gap:56px}
-.sec-label{display:flex;align-items:center;gap:18px;margin-bottom:24px;color:var(--blue)}
-.sec-label::before,.sec-label::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,currentColor 60%,currentColor);opacity:.35}
-.sec-label::after{background:linear-gradient(270deg,transparent,currentColor 60%,currentColor)}
-.sec-label span{font-family:Montserrat,sans-serif!important;font-size:.78rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;white-space:nowrap}
-.sec-row{display:flex;flex-wrap:wrap;justify-content:center;gap:24px}
-.sec-row .poster{margin:0;border-radius:14px;overflow:hidden;box-shadow:0 12px 32px rgba(58,10,16,.14);transition:transform .35s,box-shadow .35s}
-.sec-row .poster img{width:100%;aspect-ratio:3/2;object-fit:cover;transition:transform .6s}
-.sec-row .poster:hover{transform:translateY(-6px);box-shadow:0 22px 48px rgba(58,10,16,.22)}.sec-row .poster:hover img{transform:scale(1.04)}
-.sec-lg .poster{flex:0 1 calc((100% - 24px)/2)}.sec-md .poster{flex:0 1 calc((100% - 48px)/3)}
-.poster-ph{aspect-ratio:3/2;display:flex;align-items:flex-end;background:linear-gradient(160deg,var(--soft),#fff 40%,var(--blue));padding:22px}
-.poster-ph b{display:block;color:#fff;font-size:1.3rem}.poster-ph span{display:block;color:#ffd27a;font-size:.85rem}.poster-ph small{color:#fff;opacity:.85}
-@media(max-width:800px){.sec-lg .poster,.sec-md .poster{flex-basis:100%}.sec-wrap{gap:40px}}
+/* secretariat groups */
+.sec-wrap{margin-top:32px}.sec-row{display:flex;flex-wrap:wrap;justify-content:center;gap:28px;margin-bottom:36px}
+.sec-item{flex:0 1 calc((100% - 56px)/3);text-align:center}.sec-item .poster{margin:0 0 12px}
+.poster-ph{aspect-ratio:3/2;min-height:0;margin-bottom:12px}
+.sec-name{font-size:1.15rem;color:var(--ink)}.sec-role{font-weight:700;color:var(--navy);margin-top:2px}
+.sec-group{text-align:center;color:var(--blue);font-size:1.35rem;padding-bottom:12px;border-bottom:1px solid #b9a9ab;margin:12px 0 24px}.sec-group i{font-style:italic}
+@media(max-width:800px){.sec-item{flex-basis:100%}}

@@ -53,4 +53,43 @@ CONF = {
     ("Ad Hoc", "Honorable Mention", "Isabella L. Bexlee", "Lanqi Shan", "Changchun Shiyi High School"),
   ]),
 "vsph-2025": dict(hero_images=VSPH_IMAGES),
+"wlsa-2026": dict(
+  letter_role="Secretary-General",
+  letter=[
+    "Greetings! Our Dearest MUNers,",
+    "On behalf of the organizing committee, it is my honor to welcome you to the MUNCUS x WLSA 2026 Model United Nations Conference, the second iteration of a conference that has grown, this year, into something considerably more ambitious than the one I served as an Assistant Director for last year.",
+    "This year’s general topic, Post - 9/11: The American Response, asks delegates to step into one of the most consequential and contested periods in modern American history - a moment when a nation’s sense of security was shattered, and the choices made in its aftermath would reshape law, intelligence, and foreign policy for two decades to come. We have built this conference around an interconnected crisis mechanism spanning three engaging committees: The Federal Aviation Administration (FAA), confronting immediate vulnerabilities in aviation security and regulation; the House of Representatives (HoR), grappling with legislative reform in the name of national security in general; and our newly designed committee, the National Crisis Investigation Team (NCIT), aiming to spark the intelligence and tactical response to an unfolding threat.",
+    "These committees do not operate in isolation. Decisions made in one chamber would cause ripple effects throughout the entire conference. This is the structure we inherited from last year’s Cabinet-Senate-HoR mechanism, refined and further expanded, and it demands that delegates think not only as representatives of their portfolios but as participants in a single, continuous crisis with consequences that compound across committees.",
+    "I say this not to intimidate, but to invite you into something real. Model UN, at its best, is not about winning a gavel. It’s about learning to sit inside a decision that has no clean answer, to feel the pressure of incomplete information and competing loyalties, and to understand - if only for a weekend - what it might have felt like to be in that room in the fall of 2001.",
+    "To our returning delegates, welcome back. To those joining us for the first time, welcome to a conference built by students, for students, with the conviction that we are capable of engaging seriously with serious history.",
+    "I look forward to seeing what each of you brings to the committee rooms.",
+  ],
+  signoff="Until the gavel falls,<br><b>Jackie Lin</b><br>Secretary-General, MUNCUS x WLSA 2026",
+  secretariat=[("Secretary-General", "Jackie Lin", "WLSA Shanghai Academy")] + [("[Position]", "[Name]")] * 5,
+  committees=[
+    dict(abbr="FAA", name="Federal Aviation Administration", topic="Post-9/11: The American Response",
+         desc="Confronting immediate vulnerabilities in aviation security and regulation.", director=("[Name]", "[School]"), ads=[]),
+    dict(abbr="HoR", name="House of Representatives", topic="Post-9/11: The American Response",
+         desc="Grappling with legislative reform in the name of national security.", director=("[Name]", "[School]"), ads=[]),
+    dict(abbr="NCIT", name="National Crisis Investigation Team", topic="Post-9/11: The American Response",
+         desc="The intelligence and tactical response to an unfolding threat.", director=("[Name]", "[School]"), ads=[]),
+  ],
+  award_titles={
+    "FAA & NCIT": "Federal Aviation Administration (FAA) &amp; National Crisis Investigation Team (NCIT)",
+    "Best Diplomacy": "Best Diplomacy<small>MUNCUS x WLSA Special Award</small>",
+  },
+  award_notes={"Best Diplomacy": [
+    "The honor of Best Diplomacy is the most prestigious individual award exclusive only to MUNCUS x WLSA conferences, presented across all three committees to the delegate who demonstrates the most outstanding overall performance across both separate sessions and joint sessions.",
+    "Best Diplomacy recognizes not only substantive expertise and rhetorical skill, but the ability to navigate the conference’s interconnected crisis mechanism - influencing debate, building cross-committee impact, and demonstrating leadership at the highest level of the conference’s design.",
+    "No more than one Best Diplomacy award will be presented at the conference spectrum.",
+  ]},
+  awards=[
+    ("FAA & NCIT", "Best Delegate", "Richard Blee", "Yanqing Zhao", "Hiba Academy Shanghai"),
+    ("FAA & NCIT", "Outstanding Delegate", "Dale Watson", "Jingqi Zou", "Guangzhou Foreign Language School"),
+    ("FAA & NCIT", "Honorable Mention", "Gerard J. Arpey", "Kaixin Zhao", "Dongguan Experimental High School"),
+    ("HoR", "Best Delegate", "Tom DeLay", "Zihao Wang", "Shanghai East Foreign Language School Affiliated to SISU"),
+    ("HoR", "Outstanding Delegate", "Barbara Lee", "Zhiqian Chen", "Jinling High School Hexi Campus International Department"),
+    ("HoR", "Honorable Mention", "Jane Harman", "John Zhou", "University-Hill Secondary School"),
+    ("Best Diplomacy", "Best Diplomacy", "Tom DeLay", "Zihao Wang", "Shanghai East Foreign Language School Affiliated to SISU"),
+  ]),
 }

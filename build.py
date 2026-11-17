@@ -26,7 +26,7 @@ def page(fn,title,body,desc="Model United Nations Club Union of Shanghai",theme=
 <title>{title} | MUNCUS</title><meta name="description" content="{desc}">
 <link rel="canonical" href="https://muncus.org/{"" if fn=="index.html" else fn}"><link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;800&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css"></head><body{f' class="theme-{theme}"' if theme else ""}>
+<link rel="stylesheet" href="assets/css/style.css"></head><body{f' class="themed theme-{theme}"' if theme else ""}>
 <header class="site"><div class="container"><a class="brand" href="index.html"><img src="assets/img/emblem.png" alt="MUNCUS emblem"><span><b>MUNCUS</b><small>上海模拟联合国社团联盟</small></span></a>
 <button class="burger" aria-label="Menu">☰</button><nav class="main"><ul>{nav}<li><a class="cta" href="register.html">Register</a></li></ul></nav></div></header>
 <main>{body}</main>
@@ -88,7 +88,7 @@ P["contact.html"]=("Contact",hero("Contact Us","Questions about the conference o
 P["past.html"]=("Past Conferences",hero("Past Conferences","A look back at every MUNCUS conference.")+'<section><div class="container grid g3">'+"".join(f'<a class="card" style="text-decoration:none;color:inherit" href="past-{p[0]}.html"><div class="ph" style="min-height:160px">[Cover photo]</div><span class="tag" style="margin-top:14px">{p[2]}</span><h3>{p[1]}</h3><p>{p[3]}</p><span style="color:var(--blue-dark)">View conference →</span></a>' for p in PAST)+'</div></section>')
 from conferences import CONF
 SEC=["Permanent Secretary-General","Secretary-General","Deputy Secretary-General","Deputy Secretary-General","Director of Academics","Director of Operations","Director of Logistics","Director of Media"]
-THEMED=("vsph",)
+THEMED=("vsph","wlsa")
 def esc(x): return x.replace("&","&amp;").replace("<","&lt;")
 def person(r,n,sch="",ph=None):
     if ph: return f'<figure class="poster"><img src="{ph}" alt="{n}, {r}, {sch}" loading="lazy"></figure>'
@@ -104,7 +104,7 @@ for slug,name,date,venue in PAST:
     c=CONF.get(slug,{})
     theme=slug.split("-")[0] if slug.split("-")[0] in THEMED else ""
     psg=c.get("psg",{})
-    photo=f'<img class="psg" src="{psg["photo"]}" alt="{psg["name"]}">' if psg.get("photo") else '<div class="ph psg">[Large photo: Permanent Secretary-General]</div>'
+    photo=f'<img class="psg" src="{psg["photo"]}" alt="{psg["name"]}">' if psg.get("photo") else '<div class="ph psg">[Large photo: '+c.get("letter_role","Permanent Secretary-General")+']</div>'
     letter="".join(f"<p>{esc(p)}</p>" for p in c.get("letter",["Dear Delegates,","[Letter paragraph 1]","[Letter paragraph 2]","[Letter paragraph 3]"]))
     sign=c.get("signoff","Sincerely,<br><b>[Name]</b><br>Permanent Secretary-General")
     badges="".join(f'<img src="{x}" alt="">' for x in c.get("hero_images",[]))
@@ -112,12 +112,15 @@ for slug,name,date,venue in PAST:
     comms=c.get("committees",[dict(abbr="[ABBR]",name="[Committee Full Name]",topic="[Topic]",director=("[Name]","[School]"),ads=[])]*3)
     awards=c.get("awards",[("[ABBR]",a,"[Country / Role]","[Name]","[School]") for a in ("Best Delegate","Outstanding Delegate","Honorable Mention")])
     def ctitle(cm):
+        if cm in c.get("award_titles",{}): return c["award_titles"][cm]
         m=next((m for m in comms if m["abbr"]==cm),None)
         if not m: return cm
         return f'{m["abbr"]}: {m["name"]}' if m["abbr"]=="Ad Hoc" else f'{m["name"]} ({m["abbr"]})'
     arows=""
     for cm in dict.fromkeys(a[0] for a in awards):
         arows+=f'<tr class="group"><th colspan="4">{ctitle(cm)}</th></tr>'+"".join(f'<tr><td>{aw}</td><td>{role}</td><td><b>{n}</b></td><td>{sch}</td></tr>' for c2,aw,role,n,sch in awards if c2==cm)
+        notes=c.get("award_notes",{}).get(cm)
+        if notes: arows+='<tr class="note-row"><td colspan="4"><ul>'+"".join(f"<li>{x}</li>" for x in notes)+'</ul></td></tr>'
     aph=c.get("award_photos",[])
     award_car=('<div class="carousel photo-car" data-interval="3000"><div class="track">'+"".join(f'<div class="slide"><img src="{x}" alt="{name} award recipients and dais" loading="lazy"></div>' for x in aph)+'</div><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button><div class="dots"></div></div>') if aph else ''
     slides="".join(f'<div class="slide ph">[Highlight photo {i}]</div>' for i in range(1,7))

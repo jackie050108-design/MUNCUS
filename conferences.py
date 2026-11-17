@@ -64,7 +64,7 @@ CONF = {
     "To our returning delegates, welcome back. To those joining us for the first time, welcome to a conference built by students, for students, with the conviction that we are capable of engaging seriously with serious history.",
     "I look forward to seeing what each of you brings to the committee rooms.",
   ],
-  signoff="Until the gavel falls,<br><b>Jackie Lin</b><br>Secretary-General, MUNCUS x WLSA 2026",
+  signoff="Until the gavel falls,<br><b>Chia-Ching (Jackie) Lin</b><br>Secretary-General, MUNCUS x WLSA 2026",
   secretariat=[("Secretary-General", "Jackie Lin", "WLSA Shanghai Academy")] + [("[Position]", "[Name]")] * 5,
   committees=[
     dict(abbr="FAA", name="Federal Aviation Administration", topic="Post-9/11: The American Response",

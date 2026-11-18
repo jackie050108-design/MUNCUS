@@ -82,3 +82,9 @@ body.theme-wlsa{--blue:#26339d;--blue-dark:#1b2575;--navy:#141a4d;--soft:#f1f2fa
 .awards tr.note-row td{text-align:left;background:var(--soft);font-size:.9rem;color:var(--muted)}.awards tr.note-row ul{margin:0;padding-left:20px}.awards tr.note-row li{margin:4px 0}
 .dropdown .sub a.more{border-top:1px solid var(--line);margin-top:6px;padding-top:12px;color:var(--blue);font-weight:600}
 .brand small.en{letter-spacing:.04em;font-size:.68rem;margin-top:3px;color:var(--muted)}@media(max-width:420px){.brand small.en{font-size:.58rem}.brand img{height:42px}}
+/* logo text block matches the emblem's height */
+.brand{--logo-h:62px}.brand img{height:var(--logo-h)}
+.brand>span{height:var(--logo-h);display:flex;flex-direction:column;justify-content:space-between;padding:2px 0}
+.brand b,.brand small,.brand small.en{line-height:1;margin:0}
+.brand b{font-size:1.55rem}.brand small{font-size:.74rem}.brand small.en{font-size:.68rem;letter-spacing:.04em}
+@media(max-width:420px){.brand{--logo-h:50px}.brand b{font-size:1.25rem}.brand small{font-size:.62rem}.brand small.en{font-size:.55rem}.brand img{height:var(--logo-h)}}

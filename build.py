@@ -16,9 +16,9 @@ MENU=[("About","about.html",[("about.html","About MUNCUS"),("members.html","Memb
 def page(fn,title,body,desc="Model United Nations Club Union of Shanghai",theme=""):
     items=[]
     for label,land,subs in MENU:
-        if subs is None: subs=[(f"past-{p[0]}.html",p[1]) for p in PAST]
+        if subs is None: subs=[(f"past-{p[0]}.html",p[1]) for p in PAST[:3]]+[("past.html","More Past Conferences →")]
         on=fn==land or any(fn==h for h,_ in subs)
-        sub="".join(f'<li><a href="{h}">{t}</a></li>' for h,t in subs)
+        sub="".join(f'<li><a href="{h}"'+(' class="more"' if t.startswith("More") else "")+f'>{t}</a></li>' for h,t in subs)
         items.append(f'<li class="dropdown"><a href="{land}"{" class=\"active\"" if on else ""}>{label}<span class="caret"></span></a><ul class="sub">{sub}</ul></li>')
     nav="".join(items)
     return f'''<!doctype html>

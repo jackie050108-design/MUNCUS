@@ -156,3 +156,36 @@ footer.site{background:var(--navy)}
 .note-box{margin:24px 0}.note-box p{font-size:1rem}
 .zh-inline{font-weight:400;color:var(--muted);font-size:.9em;margin-left:6px}
 .article ol{font-size:1.08rem;line-height:1.8}
+/* ===== phone layout fixes ===== */
+@media(max-width:700px){
+  section{padding:64px 0}
+  .container,.container.wide{padding:0 16px}
+  /* award tables stack: committee bar, then one card-like row per award */
+  .awards,.has-photos .awards{min-width:0;border:0}
+  .awards tbody,.awards tr,.awards td,.awards th{display:block;width:100%}
+  .awards tr.group th{font-size:1.05rem;padding:14px 12px;margin-top:18px}
+  .awards tr:not(.group):not(.note-row){border:1px solid var(--line);border-top:0;padding:12px 14px;text-align:left}
+  .awards tr:not(.group):not(.note-row) td{border:0;padding:2px 0;text-align:left;background:none!important}
+  .awards tr:not(.group):not(.note-row) td:first-child{font-family:Inter,sans-serif!important;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .awards tr:not(.group):not(.note-row) td:nth-child(3){font-size:1.05rem}
+  .awards tr:not(.group):not(.note-row) td:last-child{color:var(--muted);font-size:.9rem}
+  .awards tr.note-row td{border:1px solid var(--line);border-top:0}
+  .table-wrap{overflow:visible}
+  /* typography and spacing */
+  main h2{font-size:1.7rem}
+  .page-hero{padding:64px 0 56px}
+  .letter h2{font-size:1.35rem}
+  .split{gap:28px}
+  .hero{padding:110px 0 80px}.hero h1{font-size:2.4rem}
+  .btn{padding:13px 20px}.btn-ghost{margin:10px 0 0}
+  .hero .btn{display:block;text-align:center;margin-left:0}
+  .carousel .slide{min-height:240px}
+  .conf-hero .container{flex-direction:column;align-items:flex-start}
+  .letter-box{padding:22px 18px}
+  .article p{font-size:1.04rem}
+  .award-list li{padding:12px 0}
+}
+@media(max-width:900px){
+  .awards-layout.has-photos,.wide .has-photos{grid-template-columns:1fr!important}
+  .has-photos .photo-car{position:relative!important;top:auto}
+}

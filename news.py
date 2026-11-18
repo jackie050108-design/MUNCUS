@@ -13,7 +13,7 @@ NEWS = [
       "From October 4 to 6, 2026, delegates from schools across Shanghai and beyond gathered at Vanke School Pudong for MUNCUS x VSPH 2026, the second edition of the conference co-hosted by the Model United Nations Club Union of Shanghai and Vanke School Pudong.",
       "Across three committees, the Soviet Union General Commissariat (USSRGC), the United Nations General Assembly (UNGA) and the Ad Hoc: Zootopia Howling Committee, delegates negotiated, drafted and responded to crisis over three days. At the closing ceremony, the dais teams recognized the delegates below.",
     ],
-    photos=["assets/img/news/vsph-2026/group.jpg"],
+    photos=["assets/img/news/vsph-2026/group-2026-full.jpg"],
     closing_image="assets/img/news/vsph-2026/thanks.jpg",
   ),
 ]

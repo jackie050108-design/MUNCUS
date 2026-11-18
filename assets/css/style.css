@@ -103,7 +103,7 @@ main h3{font-weight:700;letter-spacing:0}
 section.soft .card{padding:30px 26px 26px}
 .ph{border-radius:0}
 /* homepage hero: full-bleed photo, left-aligned copy */
-.hero{position:relative;text-align:left;padding:180px 0 140px;background:linear-gradient(90deg,rgba(10,34,64,.9) 0%,rgba(10,34,64,.65) 45%,rgba(10,34,64,.15) 100%),url(../img/news/vsph-2026/group.jpg) center 62%/cover}
+.hero{position:relative;text-align:left;padding:180px 0 140px;background:linear-gradient(90deg,rgba(10,34,64,.9) 0%,rgba(10,34,64,.65) 45%,rgba(10,34,64,.15) 100%),url(../img/news/vsph-2026/group-2026-full.jpg) center 62%/cover}
 .hero p{margin:0 0 34px;max-width:560px}.hero .zh{letter-spacing:.3em}
 .hero .btn-primary{background:#fff;color:var(--navy)}
 /* page banners: left-aligned, taller */

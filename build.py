@@ -40,6 +40,10 @@ def page(fn,title,body,desc="Model United Nations Club Union of Shanghai",theme=
 </div><div class="foot-bottom">© <span data-year></span> MUNCUS · Model United Nations Club Union of Shanghai · muncus.org</div></div></footer>
 <script src="assets/js/main.js?v={ASSET_V}"></script></body></html>'''
 def hero(t,s): return f'<section class="page-hero"><div class="container"><h1>{t}</h1><p>{s}</p></div></section>'
+from news import NEWS
+def news_card(n):
+    return (f'<a class="card news-card" href="news-{n["slug"]}.html"><img src="{n["cover"]}" alt="" loading="lazy">'
+            f'<div class="news-body"><span class="news-date">{n["date"]}</span><h3>{n["title"]}</h3><p>{n["summary"]}</p><span class="more-link">Read more →</span></div></a>')
 P={}
 P["index.html"]=("Home",'''
 <section class="hero"><div class="container"><div class="zh">上海模拟联合国社团联盟</div><h1>MUNCUS</h1>
@@ -54,10 +58,7 @@ P["index.html"]=("Home",'''
 <div class="card"><span class="tag">Committees</span><h3>Committees</h3><p>From General Assembly bodies to crisis committees, explore this year's topics.</p><a href="committees.html">View committees →</a></div>
 <div class="card"><span class="tag">Community</span><h3>Member Clubs</h3><p>Meet the school MUN clubs that make up the union, and learn how to join.</p><a href="members.html">See members →</a></div>
 </div></div></section>
-<section><div class="container"><div class="eyebrow">Latest</div><h2>News & Announcements</h2><div class="grid g3" style="margin-top:28px">
-<div class="card"><span class="tag">[Date]</span><h3>[Announcement title]</h3><p>[Short summary of the announcement.]</p></div>
-<div class="card"><span class="tag">[Date]</span><h3>[Announcement title]</h3><p>[Short summary of the announcement.]</p></div>
-<div class="card"><span class="tag">[Date]</span><h3>[Announcement title]</h3><p>[Short summary of the announcement.]</p></div></div></div></section>
+<section><div class="container"><div class="eyebrow">Latest</div><h2>News & Announcements</h2><div class="grid g3 news-grid" style="margin-top:28px">'''+"".join(news_card(n) for n in NEWS[:3])+'''</div><p style="margin-top:28px"><a class="btn btn-blue" href="news.html">All news</a></p></div></section>
 <section class="cta-band"><div class="container"><h2>Ready to Take the Floor?</h2><p>Registration for MUNCUS [YEAR] is [opening soon / open now].</p><a class="btn btn-primary" href="register.html">Register Now</a></div></section>''')
 P["about.html"]=("About",hero("About MUNCUS","Who we are, what we stand for, and the people who lead us.")+'''
 <section><div class="container split"><div><div class="eyebrow">Our Mission</div><h2>Mission</h2><p>[Mission statement placeholder.]</p><h3>Vision</h3><p>[Vision placeholder.]</p></div><div class="ph">[Photo]</div></div></section>
@@ -77,8 +78,7 @@ P["members.html"]=("Member Clubs",hero("Member Clubs","The school Model UN clubs
 <section class="cta-band"><div class="container"><h2>Join the Union</h2><p>[How a school club can become a MUNCUS member.]</p><a class="btn btn-primary" href="contact.html">Apply for Membership</a></div></section>''')
 P["resources.html"]=("Resources",hero("Delegate Resources","Guides and documents to help you prepare.")+'''
 <section><div class="container grid g3">'''+"".join(f'<div class="card"><h3>{t}</h3><p>[Description placeholder]</p><a href="#">Download →</a></div>' for t in ["Rules of Procedure","Position Paper Guide","Beginner's Guide to MUN","Dress Code & Conduct","Advisor Handbook","Awards Policy"])+'''</div></section>''')
-P["news.html"]=("News",hero("News","Announcements and updates from MUNCUS.")+'''
-<section><div class="container grid g3">'''+"".join('<div class="card"><div class="ph" style="min-height:160px">[Image]</div><span class="tag" style="margin-top:14px">[Date]</span><h3>[Article title]</h3><p>[Summary]</p></div>' for _ in range(6))+'''</div></section>''')
+P["news.html"]=("News",hero("News","Announcements and updates from MUNCUS.")+'<section><div class="container grid g3 news-grid">'+"".join(news_card(n) for n in NEWS)+'</div></section>')
 P["register.html"]=("Register",hero("Registration","Register your delegation for MUNCUS [YEAR].")+'''
 <section><div class="container" style="max-width:720px"><div class="note">Placeholder form — not yet connected to a backend. Registration details coming soon.</div>
 <form><div class="field"><label>School / Club</label><input></div><div class="field"><label>Head Delegate / Advisor Name</label><input></div><div class="field"><label>Email</label><input type="email"></div>
@@ -133,5 +133,27 @@ for slug,name,date,venue in PAST:
        f'<section class="soft"><div class="container"><h2>Photo Highlights</h2><div class="carousel"><div class="track">{slides}</div><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button><div class="dots"></div></div></div></section>'
        '<section><div class="container wide"><h2>Awards</h2><div class="awards-layout'+(' has-photos' if aph else '')+'"><div class="table-wrap"><table class="awards"><tbody>'+arows+'</tbody></table></div>'+award_car+'</div><p style="margin-top:30px"><a href="past.html">← All past conferences</a></p></div></section>')
     P[f"past-{slug}.html"]=(name,b,theme)
+for n in NEWS:
+    c=CONF.get(n.get("conference"),{})
+    comms={m["abbr"]:m for m in c.get("committees",[])}
+    def ttl(cm):
+        m=comms.get(cm)
+        return cm if not m else (f'{m["abbr"]}: {m["name"]}' if m["abbr"]=="Ad Hoc" else f'{m["name"]} ({m["abbr"]})')
+    aph=c.get("award_photos",[])
+    blocks=""
+    for k,cm in enumerate(dict.fromkeys(a[0] for a in c.get("awards",[]))):
+        rows="".join(f'<li><span class="aw">{aw}</span><b>{role}</b><span>{nm}</span><small>{sch}</small></li>' for c2,aw,role,nm,sch in c["awards"] if c2==cm)
+        pics="".join(f'<img src="{x}" alt="{cm} award photo" loading="lazy">' for x in aph[2*k:2*k+2])
+        blocks+=f'<div class="award-block"><h3>{ttl(cm)}</h3><ul class="award-list">{rows}</ul><div class="award-pics">{pics}</div></div>'
+    body=(f'<section class="article-hero"><div class="container narrow"><a class="back" href="news.html">← News</a><span class="news-date">{n["date"]}</span><h1>{n["title"]}</h1><p class="zh">{n["title_zh"]}</p></div></section>'
+          f'<article class="article"><div class="container narrow"><figure class="lead"><img src="{n["cover"]}" alt="{n["title"]}"></figure>'
+          +"".join(f'<p>{p}</p>' for p in n["intro"])
+          +"".join(f'<figure><img src="{x}" alt="" loading="lazy"></figure>' for x in n.get("photos",[]))
+          +f'<h2>Award Winners</h2>{blocks}'
+          +(f'<figure class="closing"><img src="{n["closing_image"]}" alt="Thanks for coming" loading="lazy"></figure>' if n.get("closing_image") else '')
+          +'<div class="article-about"><p><b>About MUNCUS</b></p><p>上海模拟联合国社团联盟（MUNCUS）致力于连接上海地区模联社团，搭建资源共享与交流平台，为更多青少年提供与世界交流的机会。</p><p>The Model United Nations Club Union of Shanghai connects MUN clubs across Shanghai, building a platform for sharing resources and exchange, and giving more young people the chance to engage with the world.</p><p class="tagline">To inspire the next generation.</p></div>'
+          +(f'<p class="source">Originally published on the MUNCUS WeChat official account. <a href="{n["wechat"]}" target="_blank" rel="noopener">Read on WeChat →</a></p>' if n.get("wechat") else '')
+          +'</div></article>')
+    P[f'news-{n["slug"]}.html']=(n["title"],body)
 for fn,v in P.items(): open(fn,"w").write(page(fn,v[0],v[1],theme=v[2] if len(v)>2 else ""))
 print("built",len(P),"pages")

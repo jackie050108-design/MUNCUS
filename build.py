@@ -133,6 +133,7 @@ for slug,name,date,venue in PAST:
        f'<section class="soft"><div class="container"><h2>Photo Highlights</h2><div class="carousel"><div class="track">{slides}</div><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button><div class="dots"></div></div></div></section>'
        '<section><div class="container wide"><h2>Awards</h2><div class="awards-layout'+(' has-photos' if aph else '')+'"><div class="table-wrap"><table class="awards"><tbody>'+arows+'</tbody></table></div>'+award_car+'</div><p style="margin-top:30px"><a href="past.html">← All past conferences</a></p></div></section>')
     P[f"past-{slug}.html"]=(name,b,theme)
+CONF_COLOR={"vsph":"#8b0010","wlsa":"#26339d"}
 for n in NEWS:
     c=CONF.get(n.get("conference"),{})
     comms={m["abbr"]:m for m in c.get("committees",[])}
@@ -144,7 +145,7 @@ for n in NEWS:
     for k,cm in enumerate(dict.fromkeys(a[0] for a in c.get("awards",[]))):
         rows="".join(f'<li><span class="aw">{aw}</span><b>{role}</b><span>{nm}</span><small>{sch}</small></li>' for c2,aw,role,nm,sch in c["awards"] if c2==cm)
         pics="".join(f'<img src="{x}" alt="{cm} award photo" loading="lazy">' for x in aph[2*k:2*k+2])
-        blocks+=f'<div class="award-block"><h3>{ttl(cm)}</h3><ul class="award-list">{rows}</ul><div class="award-pics">{pics}</div></div>'
+        blocks+=f'<div class="award-block"><h3 style="color:{CONF_COLOR.get(n.get("conference","").split("-")[0],"var(--blue)")}">{ttl(cm)}</h3><ul class="award-list">{rows}</ul><div class="award-pics">{pics}</div></div>'
     body=(f'<section class="article-hero"><div class="container narrow"><a class="back" href="news.html">← News</a><span class="news-date">{n["date"]}</span><h1>{n["title"]}</h1><p class="zh">{n["title_zh"]}</p></div></section>'
           f'<article class="article"><div class="container narrow"><figure class="lead"><img src="{n["cover"]}" alt="{n["title"]}"></figure>'
           +"".join(f'<p>{p}</p>' for p in n["intro"])

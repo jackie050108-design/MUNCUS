@@ -141,3 +141,4 @@ footer.site{background:var(--navy)}
 .article,.article :is(h2,h3,p,li,b,span,small,a),.article-hero :is(h1,p,a){font-family:Georgia,"Times New Roman","Noto Serif SC",serif}
 .article h2{font-weight:400}
 .news-card img{object-position:center top}
+.article figure.closing img{max-width:none}

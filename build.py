@@ -27,7 +27,7 @@ def page(fn,title,body,desc="Model United Nations Club Union of Shanghai",theme=
 <link rel="canonical" href="https://muncus.org/{"" if fn=="index.html" else fn}"><link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;800&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css"></head><body{f' class="themed theme-{theme}"' if theme else ""}>
-<header class="site"><div class="container"><a class="brand" href="index.html"><img src="assets/img/emblem.png" alt="MUNCUS emblem"><span><b>MUNCUS</b><small>上海模拟联合国社团联盟</small><small class="en">Model United Nations Club Union of Shanghai</small></span></a>
+<header class="site"><div class="container"><a class="brand" href="index.html"><img src="assets/img/emblem.png" alt="MUNCUS emblem"><span><b>MUNCUS</b><small class="en">Model United Nations Club Union of Shanghai</small><small>上海模拟联合国社团联盟</small></span></a>
 <button class="burger" aria-label="Menu">☰</button><nav class="main"><ul>{nav}<li><a class="cta" href="register.html">Register</a></li></ul></nav></div></header>
 <main>{body}</main>
 <footer class="site"><div class="container"><div class="grid g4">

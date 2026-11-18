@@ -13,6 +13,8 @@ PAST=[("vsph-2026","MUNCUS x VSPH 2026","Oct 4–6, 2026","Vanke School Pudong")
 MENU=[("About","about.html",[("about.html","About MUNCUS"),("members.html","Member Clubs"),("news.html","News"),("contact.html","Contact")]),
 ("Conference","conference.html",[("conference.html","Overview"),("committees.html","Committees"),("resources.html","Delegate Resources")]),
 ("Past Conferences","past.html",None)]
+import hashlib
+ASSET_V=hashlib.md5(open("assets/css/style.css","rb").read()+open("assets/js/main.js","rb").read()).hexdigest()[:8]
 def page(fn,title,body,desc="Model United Nations Club Union of Shanghai",theme=""):
     items=[]
     for label,land,subs in MENU:
@@ -26,7 +28,7 @@ def page(fn,title,body,desc="Model United Nations Club Union of Shanghai",theme=
 <title>{title} | MUNCUS</title><meta name="description" content="{desc}">
 <link rel="canonical" href="https://muncus.org/{"" if fn=="index.html" else fn}"><link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;800&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css"></head><body{f' class="themed theme-{theme}"' if theme else ""}>
+<link rel="stylesheet" href="assets/css/style.css?v={ASSET_V}"></head><body{f' class="themed theme-{theme}"' if theme else ""}>
 <header class="site"><div class="container"><a class="brand" href="index.html"><img src="assets/img/emblem.png" alt="MUNCUS emblem"><span><b>MUNCUS</b><small class="en">Model United Nations Club Union of Shanghai</small><small>上海模拟联合国社团联盟</small></span></a>
 <button class="burger" aria-label="Menu">☰</button><nav class="main"><ul>{nav}<li><a class="cta" href="register.html">Register</a></li></ul></nav></div></header>
 <main>{body}</main>
@@ -36,7 +38,7 @@ def page(fn,title,body,desc="Model United Nations Club Union of Shanghai",theme=
 <div><h4>Participate</h4><ul><li><a href="register.html">Register</a></li><li><a href="resources.html">Delegate Resources</a></li><li><a href="news.html">News</a></li><li><a href="contact.html">Contact</a></li></ul></div>
 <div><h4>Connect</h4><ul><li><a href="mailto:muncus.sh@gmail.com">Email: muncus.sh@gmail.com</a></li><li>WeChat: MUNCUS</li><li><a href="https://www.instagram.com/muncus_off/" target="_blank" rel="noopener">Instagram: @muncus_off</a></li><li>Shanghai, China</li></ul></div>
 </div><div class="foot-bottom">© <span data-year></span> MUNCUS · Model United Nations Club Union of Shanghai · muncus.org</div></div></footer>
-<script src="assets/js/main.js"></script></body></html>'''
+<script src="assets/js/main.js?v={ASSET_V}"></script></body></html>'''
 def hero(t,s): return f'<section class="page-hero"><div class="container"><h1>{t}</h1><p>{s}</p></div></section>'
 P={}
 P["index.html"]=("Home",'''

@@ -133,6 +133,48 @@ for slug,name,date,venue in PAST:
        f'<section class="soft"><div class="container"><h2>Photo Highlights</h2><div class="carousel"><div class="track">{slides}</div><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button><div class="dots"></div></div></div></section>'
        '<section><div class="container wide"><h2>Awards</h2><div class="awards-layout'+(' has-photos' if aph else '')+'"><div class="table-wrap"><table class="awards"><tbody>'+arows+'</tbody></table></div>'+award_car+'</div><p style="margin-top:30px"><a href="past.html">← All past conferences</a></p></div></section>')
     P[f"past-{slug}.html"]=(name,b,theme)
+
+from news import VSPH_SCHEDULE, VSPH_LOCATION, VSPH_DAIS
+def render_blocks(n):
+    out=""
+    for blk in n["blocks"]:
+        k=blk[0]
+        if k=="img": out+=f'<figure><img src="{blk[1]}" alt="" loading="lazy"></figure>'
+        elif k=="h2": out+=f'<h2>{blk[1]}</h2>'
+        elif k=="p": out+=f'<p>{blk[1]}</p>'
+        elif k=="closed": out+=f'<p class="closed-note">{blk[1]}</p>'
+        elif k=="letter":
+            cf=CONF[blk[1]]
+            out+='<div class="letter-box">'+"".join(f"<p>{esc(p)}</p>" for p in cf["letter"])+f'<p class="sign">{cf["signoff"]}</p></div>'
+        elif k=="location":
+            L=VSPH_LOCATION
+            out+=f'<figure><img src="{L["photo"]}" alt="{L["name"]}" loading="lazy"></figure><p class="center"><b>{L["name"]}</b>　{L["name_zh"]}<br>{L["address"]}<br>{L["address_zh"]}</p>'
+        elif k=="schedule":
+            out+='<div class="schedule">'+"".join(f'<div class="day"><h3>{d} <span>{lab}</span></h3><ul>'+"".join(f'<li><span>{ev}</span><span>{t}</span></li>' for ev,t in items)+'</ul></div>' for d,lab,items in VSPH_SCHEDULE)+'</div>'
+        elif k=="committees":
+            for m in CONF[blk[1]]["committees"]:
+                nm=f'{m["abbr"]}: {m["name"]}' if m["abbr"]=="Ad Hoc" else f'{m["name"]} ({m["abbr"]})'
+                out+=f'<div class="committee-block"><h3>{nm}</h3><p class="meta"><b>Topic:</b> {m["topic"]}<br><b>Director:</b> {m["director"][0]}</p><p>{m.get("desc","")}</p></div>'
+        elif k=="dais":
+            for title,people in VSPH_DAIS:
+                out+=f'<h3 class="dais-title">{title}</h3><div class="dais-grid">'+"".join(f'<img src="assets/img/news/vsph-2026/dais-{p}.jpg" alt="{p.replace("-"," ").title()}" loading="lazy">' for p in people)+'</div>'
+        elif k=="registration":
+            out+=('<p>MUNCUS hopes to provide all delegates with an exceptional conference environment, a professional and engaging atmosphere, and a commitment to rigorous academic standards.</p>'
+                  '<p class="zh-p">MUNCUS 致力于为所有代表提供卓越的会场环境、专业而富有参与感的氛围，并始终坚持严谨的学术标准。</p>'
+                  '<p>We are dedicated to making Model United Nations accessible to all. Therefore, MUNCUS x VSPH 2026 offered <b>free admission</b> to all delegates.</p>'
+                  '<p class="zh-p">我们始终坚信，模拟联合国应当向所有人开放。因此，MUNCUS x VSPH 2026 为所有代表提供免会费优惠。</p>'
+                  '<p>Position papers were <b>not required</b> and <b>not considered</b> in the evaluation of delegate awards. Nonetheless, all delegates were expected to carefully review the background guide to ensure a meaningful and productive conference experience. Delegates who believed a position paper would help their preparation were more than welcome to write one.</p>'
+                  '<p class="zh-p">本次大会代表无需提交立场文件，也无需担心该文件影响奖项评定。不过，我们依然鼓励大家认真阅读背景资料，做好准备，提升会场发言的深度与质量。如代表认为撰写立场文件有助于理解议题，也非常欢迎自行完成。</p>'
+                  '<p>From your first speech to your fiercest debate, we look forward to welcoming you to the beautiful campus of Vanke School Pudong for an unforgettable MUN experience!</p>'
+                  '<p class="zh-p">从你的第一次发言，到最激烈的辩论——我们期待在上海浦东新区民办万科学校美丽的校园与你相见，共同开启一场难忘的模拟联合国之旅！</p>')
+            if blk[1]: out+=('<div class="note-box"><p><b>Note</b></p><p>Information on committees and committee placement preferences for MUNCUS x VSPH 2026 will be released alongside the second announcement, following the completion of dais team formation. The Secretariat will then collect committee preference submissions from all delegates.</p>'
+                             '<p class="zh-p">MUNCUS x VSPH 2026 各委员会信息及委员会分配意向，将于主席团组建完成后，随第二轮通告正式发布，届时本次大会秘书处将统一收集各位代表的委员会意向信息。</p></div>')
+        elif k=="affairs":
+            out+=('<h3>Conference and Document Services <span class="zh-inline">会议及文件服务</span></h3><p>The Secretariat is responsible for providing various services to the committees and their delegates, including but not limited to:</p>'
+                  '<ol><li>Conference planning and scheduling</li><li>Meeting room services</li><li>Interpretation</li><li>Document and publication services, including editing, translation, text processing and desktop publishing, printing, distribution, and official written meeting minutes</li></ol>'
+                  '<h3>Use of Electronic Devices and Cameras <span class="zh-inline">电子设备和照相机的使用</span></h3><p>During formal debates, delegates are generally not permitted to use electronic devices, unless otherwise specified by the committee chair. When taking photographs or videos in the venue, care should be taken to avoid capturing others without their consent, or to obtain consent in advance.</p>'
+                  '<h3>Dress Code <span class="zh-inline">着装要求</span></h3><p>To foster a professional and memorable conference environment, delegates are <b>required to wear formal attire</b> for all sessions. The Secretariat and committees may address cases of non-compliance with the dress code as appropriate.</p>')
+    return out
 CONF_COLOR={"vsph":"#8b0010","wlsa":"#26339d"}
 for n in NEWS:
     c=CONF.get(n.get("conference"),{})
@@ -146,6 +188,12 @@ for n in NEWS:
         rows="".join(f'<li><span class="aw">{aw}</span><b>{role}</b><span>{nm}</span><small>{sch}</small></li>' for c2,aw,role,nm,sch in c["awards"] if c2==cm)
         pics="".join(f'<img src="{x}" alt="{cm} award photo" loading="lazy">' for x in aph[2*k:2*k+2])
         blocks+=f'<div class="award-block"><h3 style="color:{CONF_COLOR.get(n.get("conference","").split("-")[0],"var(--blue)")}">{ttl(cm)}</h3><ul class="award-list">{rows}</ul><div class="award-pics">{pics}</div></div>'
+    hero=(f'<section class="article-hero"><div class="container narrow"><a class="back" href="news.html">← News</a><span class="news-date">{n["date"]}</span><h1>{n["title"]}</h1><p class="zh">{n["title_zh"]}</p></div></section>')
+    tail=('<div class="article-about"><p><b>About MUNCUS</b></p><p>上海模拟联合国社团联盟（MUNCUS）致力于连接上海地区模联社团，搭建资源共享与交流平台，为更多青少年提供与世界交流的机会。</p><p>The Model United Nations Club Union of Shanghai connects MUN clubs across Shanghai, building a platform for sharing resources and exchange, and giving more young people the chance to engage with the world.</p><p class="tagline">To inspire the next generation.</p></div>'
+          +(f'<p class="source">Originally published on the MUNCUS WeChat official account. <a href="{n["wechat"]}" target="_blank" rel="noopener">Read on WeChat →</a></p>' if n.get("wechat") else ''))
+    if "blocks" in n:
+        P[f'news-{n["slug"]}.html']=(n["title"],hero+'<article class="article"><div class="container narrow">'+render_blocks(n)+tail+'</div></article>')
+        continue
     body=(f'<section class="article-hero"><div class="container narrow"><a class="back" href="news.html">← News</a><span class="news-date">{n["date"]}</span><h1>{n["title"]}</h1><p class="zh">{n["title_zh"]}</p></div></section>'
           f'<article class="article"><div class="container narrow"><figure class="lead"><img src="{n["cover"]}" alt="{n["title"]}"></figure>'
           +"".join(f'<p>{p}</p>' for p in n["intro"])
